@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app
+  labels:
+    app: python
+  namespace: python
+spec:
+  template:
+    metadata:
+      name: python-app
+      labels:
+        app: python
+    spec:
+      containers:
+      - name: pythonapp
+        image: bhandarihardik/pythonapp:latest
+        ports:
+          - containerPort: 5000
+            protocol: TCP
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: 500m
+          limits:
+            memory: "1Gi"
+            cpu: 1
+        volumeMounts:
+          - mountPath: /data
+            name: data-volume
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: python-vol
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python
