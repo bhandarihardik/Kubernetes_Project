@@ -6,17 +6,16 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
   labels:
     app: python
-  name: python-app
-  namespace: python
+  name: python-grafana
 spec:
   rules:
-  - host: python.hardikbhandari.tech
+  - host: new.hardikbhandari.tech
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: python-app
+            name: prometheus-grafana
             port:
-              number: 80
+              number: 6000

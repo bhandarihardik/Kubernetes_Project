@@ -6,17 +6,18 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
   labels:
     app: python
-  name: python-app
-  namespace: python
+  name: python-peo
 spec:
   rules:
-  - host: python.hardikbhandari.tech
+  - host: prometheus.hardikbhandari.tech
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: python-app
+            name: prometheus-kube-prometheus-prometheus
             port:
-              number: 80
+              number: 9090
+
+
